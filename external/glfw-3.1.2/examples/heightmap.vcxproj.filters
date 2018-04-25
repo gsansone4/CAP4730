@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\gsans\Documents\OpenGLTutorials\ogl\external\glfw-3.1.2\examples\heightmap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\gsans\Documents\OpenGLTutorials\ogl\external\glfw-3.1.2\deps\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\gsans\Documents\OpenGLTutorials\ogl\external\glfw-3.1.2\deps\glad\glad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gsans\Documents\OpenGLTutorials\ogl\external\glfw-3.1.2\examples\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4389E247-1FD0-3727-B361-AF2D6B104379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2AD14537-C4BB-3253-9236-6D0E0BD6C43A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
