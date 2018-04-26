@@ -21,6 +21,19 @@ using namespace glm;
 #include <objloader.hpp>
 #include <vboindexer.hpp>
 
+bool toggleOcclude = false;
+bool rayRender = false;
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+		toggleOcclude = !toggleOcclude; 
+	}
+	else if (key == GLFW_KEY_R && action == GLFW_PRESS) {
+		rayRender = !rayRender;
+	}
+}
+
 int main( void )
 {
 	// Initialise GLFW
@@ -86,10 +99,12 @@ int main( void )
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID);
 
+	glfwSetKeyCallback(window, key_callback);
+
 	// Create and compile our GLSL program from the shaders
 	//GLuint rayprogramID = LoadShaders("StandardShadingRTT.vertexshader", "OcclusionShading.fragmentshader");
-	//GLuint programID = LoadShaders("StandardShadingRTT.vertexshader", "StandardShadingRTT.fragmentshader");
-	GLuint programID = LoadShaders("StandardShadingRTT.vertexshader", "OcclusionShading.fragmentshader");
+	
+	GLuint programID = LoadShaders("StandardShadingRTT.vertexshader", "StandardShadingRTT.fragmentshader");
 
 	// Get a handle for our "MVP" uniform
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
@@ -216,12 +231,20 @@ int main( void )
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_quad_vertex_buffer_data), g_quad_vertex_buffer_data, GL_STATIC_DRAW);
 
 	// Create and compile our GLSL program from the shaders
-	//GLuint quad_programID = LoadShaders("Passthrough.vertexshader", "SimpleTexture.fragmentshader");
-	GLuint quad_programID = LoadShaders( "Passthrough.vertexshader", "GodRayTexture.fragmentshader" );
+	GLuint quad_programID = LoadShaders("Passthrough.vertexshader", "SimpleTexture.fragmentshader");
+
 	GLuint texID = glGetUniformLocation(quad_programID, "renderedTexture");
 	GLuint timeID = glGetUniformLocation(quad_programID, "time");
     
 	do{
+		if (!toggleOcclude)
+			programID = LoadShaders("StandardShadingRTT.vertexshader", "StandardShadingRTT.fragmentshader");
+		else if (toggleOcclude)
+			programID = LoadShaders("StandardShadingRTT.vertexshader", "OcclusionShading.fragmentshader");
+		if (!rayRender)
+			quad_programID = LoadShaders("Passthrough.vertexshader", "SimpleTexture.fragmentshader");
+		else
+			quad_programID = LoadShaders("Passthrough.vertexshader", "GodRayTexture.fragmentshader");
 		// Render to our framebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
 		glViewport(0,0,windowWidth,windowHeight); // Render on the whole framebuffer, complete from the lower left corner to the upper right
