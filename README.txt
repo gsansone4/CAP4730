@@ -11,7 +11,7 @@ Controls (need speeding up):
 
 References:
 	- www.opengl-tutorial.org
-	- fabiensanglard.net/lightScattering/
+	- www.fabiensanglard.net/lightScattering/
 
 Libraries:
 	- GLM
